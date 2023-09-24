@@ -13,3 +13,24 @@ check_root() {
     fi
 }
 
+##> Prints a goodbye message to the terminal and exits the script.
+say_goodbye() {
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    clear
+    echo $lineBreak
+    echo "Goodbye"
+    echo $lineBreak
+    exit 0
+}
+
+##> Prints an Error message to the terminal and exits the script.
+something_wrong() {
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    echo $lineBreak
+    echo "Something went wrong!!"
+    echo "The script cannot continue."
+    echo "Please read the above messages"
+    echo "to understand what cause the error."
+    echo $lineBreak
+    exit 1
+}
