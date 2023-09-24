@@ -20,7 +20,7 @@ say_goodbye() {
     echo $lineBreak
     echo "Goodbye"
     echo $lineBreak
-    exit 0
+    exit 1
 }
 
 ##> Prints an Error message to the terminal and exits the script.
