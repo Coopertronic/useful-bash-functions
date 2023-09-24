@@ -34,3 +34,40 @@ something_wrong() {
     echo $lineBreak
     exit 1
 }
+
+##> This function asks the user if they want to continue or not.
+to_continue() {
+    while true; do
+
+        read -p "Yes or No? (y/n) " yn
+
+        case $yn in
+        yes)
+            echo ok, we will proceed
+            break
+            ;;
+        y)
+            echo ok, we will proceed
+            break
+            ;;
+        Y)
+            echo ok, we will proceed
+            break
+            ;;
+        no)
+            say_goodbye
+            exit
+            ;;
+        n)
+            say_goodbye
+            exit
+            ;;
+        N)
+            say_goodbye
+            exit
+            ;;
+        *) echo invalid response ;;
+        esac
+
+    done
+}
