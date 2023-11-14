@@ -30,7 +30,7 @@ something_wrong() {
     echo "Something went wrong!!"
     echo "The script cannot continue."
     echo "Please read the above messages"
-    echo "to understand what cause the error."
+    echo "to understand what caused the error."
     echo $lineBreak
     exit 1
 }
