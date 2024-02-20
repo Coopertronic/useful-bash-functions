@@ -2,7 +2,7 @@
 
 ##  Some useful functions
 ##  Copy this script to your project folder
-##  and add as 'source ./functions.sh' then
+##  and add as 'source functions' then
 ##  just call the functions as normal.
 
 ##> Checks if the user is root and kills the script if it is not.
@@ -20,7 +20,6 @@ say_goodbye() {
     echo $lineBreak
     echo "Goodbye"
     echo $lineBreak
-    exit 1
 }
 
 ##> Prints an Error message to the terminal and exits the script.
