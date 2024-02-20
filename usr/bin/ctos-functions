@@ -35,6 +35,15 @@ something_wrong() {
     exit 1
 }
 
+##  Not a working Directory
+not_my_dir() {
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    echo $lineBreak
+    echo "Make sure you are in the right directory."
+    echo "Your current working directory is: $PWD"
+    echo $lineBreak
+}
+
 ##> This function asks the user if they want to continue or not.
 to_continue() {
     while true; do
