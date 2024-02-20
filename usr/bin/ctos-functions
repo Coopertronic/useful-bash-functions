@@ -31,6 +31,7 @@ something_wrong() {
     echo "Please read the above messages"
     echo "to understand what caused the error."
     echo $lineBreak
+    say_goodbye
     exit 1
 }
 
