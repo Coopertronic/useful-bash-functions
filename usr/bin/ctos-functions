@@ -2,7 +2,7 @@
 
 ##  Some useful functions
 ##  Copy this script to your project folder
-##  and add as 'source functions' then
+##  and add as 'source ctos-functions' then
 ##  just call the functions as normal.
 
 ##> Checks if the user is root and kills the script if it is not.
