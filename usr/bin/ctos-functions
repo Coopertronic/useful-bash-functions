@@ -16,7 +16,7 @@ check_root() {
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
     lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
-    clear
+    #clear
     echo $lineBreak
     echo "Goodbye"
     echo $lineBreak
