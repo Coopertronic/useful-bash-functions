@@ -44,7 +44,7 @@ not_my_dir() {
     echo $lineBreak
 }
 
-##  Tests if a directory location exists and if it is indeed a directory.
+##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
     lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
 echo "linking to remote folder video for the workshop server."
@@ -63,6 +63,20 @@ else
 	fi
 fi
 }
+
+##  Find newest file by suffix and extention.
+##  Function needs 3 strings. 1) the path or location of the files. 2) The suffix to search by. 3) the extention to search by.
+find_old_pkgs() {
+    thLocation=$1
+    thSuffix=$2
+    thExtention=$3
+    echo "The Path: " $thLocation
+    echo "The Suffix: " $thSuffix
+    echo "The Extention: " $thExtention
+}
+##  Surgest what to delete
+##  Make list of files excluding the newest one
+
 
 ##> This function asks the user if they want to continue or not.
 to_continue() {
@@ -85,15 +99,15 @@ to_continue() {
             ;;
         no)
             say_goodbye
-            exit
+            exit 0
             ;;
         n)
             say_goodbye
-            exit
+            exit 0
             ;;
         N)
             say_goodbye
-            exit
+            exit 0
             ;;
         *) echo invalid response ;;
         esac
