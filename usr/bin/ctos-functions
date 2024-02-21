@@ -44,6 +44,26 @@ not_my_dir() {
     echo $lineBreak
 }
 
+##  Tests if a directory location exists and if it is indeed a directory.
+test_location() {
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+echo "linking to remote folder video for the workshop server."
+echo $lineBreak
+if !( [ -e "$1"  ] ); then
+	echo "You should create the directory"
+	return 1
+else
+	echo "The location exists"
+	if !( [ -d  "$1" ] ); then
+		echo "Exists, but is not a directory"
+		return 1
+	else
+		echo "Is a directory"
+		return 0
+	fi
+fi
+}
+
 ##> This function asks the user if they want to continue or not.
 to_continue() {
     while true; do
