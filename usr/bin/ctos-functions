@@ -79,6 +79,7 @@ find_old_pkgs() {
     #thecounter=0
     for f in $thLocation/$thPrefix*.$thExtention; do
         #echo $f
+        fileName=${f##*/}
         thFiles+=($f)
     done
     echo "Here are the files scanned."
