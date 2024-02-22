@@ -85,6 +85,12 @@ find_old_pkgs() {
     echo "Here are the files scanned."
     echo ${thFiles[@]}
 }
+
+##  Finds the newest file in an array. Pass the path and the file list.
+detect_newest_file() {
+    echo "This will find the newest file in a range."
+}
+
 ##  Surgest what to delete
 ##  Make list of files excluding the newest one
 
