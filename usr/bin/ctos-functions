@@ -77,18 +77,24 @@ find_old_pkgs() {
     echo "The Extention: " $thExtention
     thFiles=()
     #thecounter=0
-    for f in $thLocation/$thPrefix*.$thExtention; do
+    newFile=ls -t $thLocation$thPrefix*.$thExtention | head -1
+    echo "Here is the new file: " $newFile
+    for f in $thLocation$thPrefix*.$thExtention; do
         #echo $f
         fileName=${f##*/}
         thFiles+=($fileName)
     done
-    echo "Here are the files scanned."
+    echo "Here are all the files."
     echo ${thFiles[@]}
+    #detect_newest_file "${thFiles[@]}"
 }
 
 ##  Finds the newest file in an array. Pass the path and the file list.
 detect_newest_file() {
+    thFiles=("$@")
     echo "This will find the newest file in a range."
+    echo ${thFiles[@]}
+
 }
 
 ##  Surgest what to delete
