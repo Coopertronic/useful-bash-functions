@@ -47,23 +47,23 @@ not_my_dir() {
 ##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
     lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
-echo "linking to remote folder video for the workshop server."
-echo $lineBreak
-if !( [ -e "$1"  ] ); then
-	echo "You should create the directory"
-    not_my_dir
-	return 1
-else
-	echo "The location exists"
-	if !( [ -d  "$1" ] ); then
-		echo "Exists, but is not a directory"
+    echo "linking to remote folder video for the workshop server."
+    echo $lineBreak
+    if !( [ -e "$1"  ] ); then
+        echo "You should create the directory"
         not_my_dir
-		return 1
-	else
-		echo "Is a directory"
-		return 0
-	fi
-fi
+        return 1
+    else
+        echo "The location exists"
+        if !( [ -d  "$1" ] ); then
+            echo "Exists, but is not a directory"
+            not_my_dir
+            return 1
+        else
+            echo "Is a directory"
+            return 0
+        fi
+    fi
 }
 
 ##  Find newest file by Prefix and extention.
@@ -75,13 +75,17 @@ find_old_pkgs() {
     echo "The Path: " $thLocation
     echo "The Prefix: " $thPrefix
     echo "The Extention: " $thExtention
+    thFiles=()
+    #thecounter=0
     for f in $thLocation/$thPrefix*.$thExtention; do
-        echo $f
+        #echo $f
+        thFiles+=($f)
     done
+    echo "Here are the files scanned."
+    echo ${thFiles[@]}
 }
 ##  Surgest what to delete
 ##  Make list of files excluding the newest one
-
 
 ##> This function asks the user if they want to continue or not.
 to_continue() {
@@ -119,5 +123,3 @@ to_continue() {
 
     done
 }
-
-
