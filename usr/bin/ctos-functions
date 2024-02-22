@@ -77,7 +77,7 @@ find_old_pkgs() {
     echo "The Extention: " $thExtention
     thFiles=()
     #thecounter=0
-    newFile=ls -t $thLocation$thPrefix*.$thExtention | head -1
+    newFile=${ls -t $thLocation$thPrefix*.$thExtention | head -1}
     echo "Here is the new file: " $newFile
     for f in $thLocation$thPrefix*.$thExtention; do
         #echo $f
