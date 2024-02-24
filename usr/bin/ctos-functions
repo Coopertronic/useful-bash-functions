@@ -81,7 +81,7 @@ find_old_pkgs() {
     echo "Here is the new file: " $newFile
     for f in $thLocation$thPrefix*.$thExtention; do
         fileName=${f##*/}
-        if ("$file" != "$newFile"); then
+        if [ "$file" != "$newFile" ]; then
             thFiles+=($fileName)
         fi
     done
