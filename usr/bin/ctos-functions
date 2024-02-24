@@ -69,9 +69,11 @@ test_location() {
 ##  Find newest file by Prefix and extention.
 ##  Function needs 3 strings. 1) the path or location of the files. 2) The Prefix to search by. 3) the extention to search by.
 find_old_pkgs() {
-    thLocation=$1
-    thPrefix=$2
-    thExtention=$3
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    declare -n thFiles=$1
+    thLocation=$2
+    thPrefix=$3
+    thExtention=$4
     thFiles=()
     echo "The Path: " $thLocation
     echo "The Prefix: " $thPrefix
@@ -85,8 +87,15 @@ find_old_pkgs() {
             thFiles+=($fileName)
         fi
     done
+    echo $lineBreak
     echo "Here are all the $thExtention files apart from the newest one."
-    echo ${thFiles[@]}
+    echo "Total files in function: ${#thFiles[@]}"
+    for i in "${thFiles[@]}"; do
+        echo "File $i: {thFiles[$i]}"
+    done
+    echo
+    echo "End of function"
+    to_continue
 }
 
 ##  Surgest what to delete
