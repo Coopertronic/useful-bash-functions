@@ -95,7 +95,9 @@ find_old_pkgs() {
     done
     echo
     echo "End of function"
+    echo "Save to file?"
     to_continue
+    ##  write the array to a file in temp
 }
 
 ##  Surgest what to delete
