@@ -99,24 +99,29 @@ find_old_pkgs() {
     ##  write the array to a file in temp
     tempDir="/tmp/FOP/"
     tempFile="old-files.txt"
-    dirExists=$(test_location $tempDir)
-    echo "Is this the correct responce for test_location?"
-    echo "dirExists=" $dirExists " DIRECT"
-    echo "dirExists=$dirExists STRING"
-    to_continue
-    echo $lineBreak
-    echo "Continuing to write file ..."
-    echo $lineBreak
-    ##  test if dir exists
-    if [ $dirExists == 1 ]; then
-        mkdir $tempDir
-        echo "Created dir"
+    if !( test_location "$tempDir" ); then
+        something_wrong
+    else
+        local dirExists=$?
+        echo "Is this the correct responce for test_location?"
+        echo "dirExists=" $dirExists " DIRECT"
+        echo "dirExists=$dirExists STRING"
+        to_continue
+        echo $lineBreak
+        echo "Continuing to write file ..."
+        echo $lineBreak
+        ##  test if dir exists
+        if [ $dirExists == 1 ]; then
+            mkdir $tempDir
+            echo "Created dir"
+        fi
+        printf "\n" {thFiles[@]} >$tempFile
+        echo $lineBreak
+        echo "Temp file written."
+        echo $lineBreak
+        to_continue
     fi
-    printf "\n" {thFiles[@]} > $tempFile
-    echo $lineBreak
-    echo "Temp file written."
-    echo $lineBreak
-    to_continue
+
 }
 
 ##  Surgest what to delete
