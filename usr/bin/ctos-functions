@@ -100,8 +100,10 @@ find_old_pkgs() {
     tempDir="/tmp/FOP/"
     tempFile="old-files.txt"
     dirExists=$(test_location $tempDir)
+    ##  test if dir exists
     if [ $dirExists = 1 ]; then
         mkdir $tempDir
+        echo "Created dir"
     fi
     printf "%s\n" {thFiles[@]} > $tempFile
 }
