@@ -41,6 +41,7 @@ not_my_dir() {
     echo $lineBreak
     echo "Make sure you are in the right directory."
     echo "Your current working directory is: $PWD"
+    echo "Your requested directory is: $1"
     echo $lineBreak
 }
 
@@ -51,13 +52,13 @@ test_location() {
     echo $lineBreak
     if !( [ -e "$1"  ] ); then
         echo "You should create the directory"
-        not_my_dir
+        not_my_dir $1
         return 1
     else
         echo "The location exists"
         if !( [ -d  "$1" ] ); then
             echo "Exists, but is not a directory"
-            not_my_dir
+            not_my_dir $1
             return 1
         else
             echo "Is a directory"
@@ -100,27 +101,22 @@ find_old_pkgs() {
     tempDir="/tmp/FOP/"
     tempFile="old-files.txt"
     if !( test_location "$tempDir" ); then
-        something_wrong
-    else
-        local dirExists=$?
-        echo "Is this the correct responce for test_location?"
-        echo "dirExists=" $dirExists " DIRECT"
-        echo "dirExists=$dirExists STRING"
-        to_continue
-        echo $lineBreak
-        echo "Continuing to write file ..."
-        echo $lineBreak
-        ##  test if dir exists
-        if [ $dirExists == 1 ]; then
-            mkdir $tempDir
-            echo "Created dir"
-        fi
-        printf "\n" {thFiles[@]} >$tempFile
-        echo $lineBreak
-        echo "Temp file written."
-        echo $lineBreak
-        to_continue
+        mkdir $tempDir
+        echo "Created dir"
     fi
+    dirExists=$?
+    echo "Is this the correct responce for test_location?"
+    echo "dirExists=" $dirExists " DIRECT"
+    echo "dirExists=$dirExists STRING"
+    to_continue
+    echo $lineBreak
+    echo "Continuing to write file ..."
+    echo $lineBreak
+    printf "\n" {thFiles[@]} >$tempFile
+    echo $lineBreak
+    echo "Temp file written."
+    echo $lineBreak
+    to_continue
 
 }
 
