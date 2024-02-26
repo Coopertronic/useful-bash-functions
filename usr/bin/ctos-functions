@@ -100,8 +100,15 @@ find_old_pkgs() {
     tempDir="/tmp/FOP/"
     tempFile="old-files.txt"
     dirExists=$(test_location $tempDir)
+    echo "Is this the correct responce for test_location?"
+    echo "dirExists=" $dirExists " DIRECT"
+    echo "dirExists=$dirExists STRING"
+    to_continue
+    echo $lineBreak
+    echo "Continuing to write file ..."
+    echo $lineBreak
     ##  test if dir exists
-    if [ $dirExists = 1 ]; then
+    if [ $dirExists == "1" ]; then
         mkdir $tempDir
         echo "Created dir"
     fi
