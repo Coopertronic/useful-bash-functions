@@ -94,10 +94,16 @@ find_old_pkgs() {
         echo "File $i: {thFiles[$i]}"
     done
     echo
-    echo "End of function"
     echo "Save to file?"
     to_continue
     ##  write the array to a file in temp
+    tempDir="/tmp/FOP/"
+    tempFile="old-files.txt"
+    dirExists=$(test_location $tempDir)
+    if [ $dirExists = 1 ]; then
+        mkdir $tempDir
+    fi
+    printf "%s\n" {thFiles[@]} > $tempFile
 }
 
 ##  Surgest what to delete
