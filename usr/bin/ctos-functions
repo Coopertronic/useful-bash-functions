@@ -113,6 +113,10 @@ find_old_pkgs() {
         echo "Created dir"
     fi
     printf "\n" {thFiles[@]} > $tempFile
+    echo $lineBreak
+    echo "Temp file written."
+    echo $lineBreak
+    to_continue
 }
 
 ##  Surgest what to delete
