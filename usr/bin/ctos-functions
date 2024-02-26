@@ -108,11 +108,11 @@ find_old_pkgs() {
     echo "Continuing to write file ..."
     echo $lineBreak
     ##  test if dir exists
-    if [ $dirExists == "1" ]; then
+    if [ $dirExists == 1 ]; then
         mkdir $tempDir
         echo "Created dir"
     fi
-    printf "%s\n" {thFiles[@]} > $tempFile
+    printf "\n" {thFiles[@]} > $tempFile
 }
 
 ##  Surgest what to delete
