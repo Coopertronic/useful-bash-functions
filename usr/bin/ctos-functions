@@ -106,13 +106,13 @@ find_old_pkgs() {
     fi
     dirExists=$?
     echo "Is this the correct responce for test_location?"
-    echo "dirExists=" $dirExists " DIRECT"
+    echo "dirExists=" $dirExists "DIRECT"
     echo "dirExists=$dirExists STRING"
     to_continue
     echo $lineBreak
     echo "Continuing to write file ..."
     echo $lineBreak
-    printf "\n" {thFiles[@]} >$tempFile
+    printf "\n" {thFiles[@]} > $tempDir$tempFile
     echo $lineBreak
     echo "Temp file written."
     echo $lineBreak
