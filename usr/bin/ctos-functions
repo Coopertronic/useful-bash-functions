@@ -102,19 +102,20 @@ find_old_pkgs() {
     if !( test_location "$tempDir" ); then
         mkdir $tempDir
         echo "Created dir"
+    else
+        dirExists=$?
+        echo "Is this the correct responce for test_location?"
+        echo "dirExists=" $dirExists "DIRECT"
+        echo "dirExists=$dirExists STRING"
+        echo $lineBreak
+        echo "Continuing to write file ..."
+        echo $lineBreak
+        printf "%s\n {thFiles[@]}" >"$tempDir$tempFile"
+        echo $lineBreak
+        echo "Temp file written."
+        echo $lineBreak
+        to_continue
     fi
-    dirExists=$?
-    echo "Is this the correct responce for test_location?"
-    echo "dirExists=" $dirExists "DIRECT"
-    echo "dirExists=$dirExists STRING"
-    to_continue
-    echo $lineBreak
-    echo "Continuing to write file ..."
-    echo $lineBreak
-    printf "%s\n {thFiles[@]}" > "$tempDir$tempFile"
-    echo $lineBreak
-    echo "Temp file written."
-    echo $lineBreak
 }
 
 ##  Surgest what to delete
