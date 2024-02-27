@@ -112,7 +112,7 @@ find_old_pkgs() {
     echo $lineBreak
     echo "Continuing to write file ..."
     echo $lineBreak
-    printf "\n" {thFiles[@]} > $tempDir$tempFile
+    printf "%s\n {thFiles[@]}" > "$tempDir$tempFile"
     echo $lineBreak
     echo "Temp file written."
     echo $lineBreak
