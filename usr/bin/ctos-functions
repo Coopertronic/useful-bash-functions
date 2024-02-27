@@ -75,7 +75,6 @@ find_old_pkgs() {
     thLocation=$2
     thPrefix=$3
     thExtention=$4
-    thFiles=()
     echo "The Path: " $thLocation
     echo "The Prefix: " $thPrefix
     echo "The Extention: " $thExtention
@@ -116,8 +115,6 @@ find_old_pkgs() {
     echo $lineBreak
     echo "Temp file written."
     echo $lineBreak
-    to_continue
-
 }
 
 ##  Surgest what to delete
