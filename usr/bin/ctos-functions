@@ -67,61 +67,6 @@ test_location() {
     fi
 }
 
-##  Find newest file by Prefix and extention.
-##  Function needs 3 strings. 1) the path or location of the files. 2) The Prefix to search by. 3) the extention to search by.
-find_old_pkgs() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
-    declare -n thFiles=$1
-    thLocation=$2
-    thPrefix=$3
-    thExtention=$4
-    echo "The Path: " $thLocation
-    echo "The Prefix: " $thPrefix
-    echo "The Extention: " $thExtention
-    newFileLocation=$(ls -t $thLocation$thPrefix*.$thExtention | head -1)
-    newFile=${newFileLocation##*/}
-    echo "Here is the new file: " $newFile
-    for f in $thLocation$thPrefix*.$thExtention; do
-        fileName=${f##*/}
-        if [ "$fileName" != "$newFile" ]; then
-            thFiles+=($fileName)
-        fi
-    done
-    echo $lineBreak
-    echo "Here are all the $thExtention files apart from the newest one."
-    echo "Total files in function: ${#thFiles[@]}"
-    for i in "${thFiles[@]}"; do
-        echo "File $i: {thFiles[$i]}\n"
-    done
-    echo
-    echo "Save to file?"
-    to_continue
-    ##  write the array to a file in temp
-    tempDir="/tmp/FOP/"
-    tempFile="old-files.txt"
-    if !( test_location "$tempDir" ); then
-        mkdir $tempDir
-        echo "Created dir"
-    else
-        dirExists=$?
-        echo "Is this the correct responce for test_location?"
-        echo "dirExists=" $dirExists "DIRECT"
-        echo "dirExists=$dirExists STRING"
-        echo $lineBreak
-        echo "Continuing to write file ..."
-        echo $lineBreak
-        printf "%s\n" {thFiles[@]} > $tempFile
-        echo $lineBreak
-        echo "Temp file written."
-        echo "Manually check it for text."
-        echo $lineBreak
-        to_continue
-    fi
-}
-
-##  Surgest what to delete
-##  Make list of files excluding the newest one
-
 ##> This function asks the user if they want to continue or not.
 to_continue() {
     while true; do
