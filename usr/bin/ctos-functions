@@ -90,7 +90,7 @@ find_old_pkgs() {
     done
     echo $lineBreak
     echo "Here are all the $thExtention files apart from the newest one."
-    echo "Total files in function: ${#thFiles[@]}"
+    echo "Total files for $thExtention: ${#thFiles[@]}"
     count=0
     for i in "${thFiles[@]}"; do
         echo "File $((count + 1)): "$i
