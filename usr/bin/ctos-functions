@@ -67,6 +67,46 @@ test_location() {
     fi
 }
 
+##  Finds the old packages and deletes them.
+find_old_pkgs() {
+    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    ##  Fill array
+    local thFiles=()
+    local thLocation=$1
+    local thPrefix=$2
+    local thExtention=$3
+    echo "The Path: " $thLocation
+    echo "The Prefix: " $thPrefix
+    echo "The Extention: " $thExtention
+    newFileLocation=$(ls -t $thLocation$thPrefix*.$thExtention | head -1)
+    echo $lineBreak
+    newFile=${newFileLocation##*/}
+    echo "Here is the newest file: " $newFile
+    for f in $thLocation$thPrefix*.$thExtention; do
+        fileName=${f##*/}
+        if [ "$fileName" != "$newFile" ]; then
+            thFiles+=($fileName)
+        fi
+    done
+    echo $lineBreak
+    echo "Here are all the $thExtention files apart from the newest one."
+    echo "Total files in function: ${#thFiles[@]}"
+    count=0
+    for i in "${thFiles[@]}"; do
+        echo "File $((count + 1)): "$i
+        ((count++))
+    done
+    echo $lineBreak
+    echo "Do you want to delete them?"
+    to_continue
+    echo $lineBreak
+    for i in "${thFiles[@]}"; do
+        echo "Deleting file $((count + 1)): "$i
+        rm $i
+        ((count++))
+    done
+}
+
 ##> This function asks the user if they want to continue or not.
 to_continue() {
     while true; do
