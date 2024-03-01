@@ -98,7 +98,7 @@ find_old_pkgs() {
     done
     echo $lineBreak
     echo "Do you want to delete them?"
-    to_continue
+    #to_continue
     echo $lineBreak
     for i in "${thFiles[@]}"; do
         echo "Deleting file $((count + 1)): "$i
