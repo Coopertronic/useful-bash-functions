@@ -102,7 +102,7 @@ find_old_pkgs() {
     echo $lineBreak
     for i in "${thFiles[@]}"; do
         echo "Deleting file $((count + 1)): "$i
-        rm $i
+        rm $thLocation$i
         ((count++))
     done
 }
