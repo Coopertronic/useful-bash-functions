@@ -15,7 +15,7 @@ check_root() {
 
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    lineBreak='<<##############################################>>'
     #clear
     echo $lineBreak
     echo "Goodbye"
@@ -24,7 +24,7 @@ say_goodbye() {
 
 ##> Prints an Error message to the terminal and exits the script.
 something_wrong() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    lineBreak='<<##############################################>>'
     echo $lineBreak
     echo "Something went wrong!!"
     echo "The script cannot continue."
@@ -37,7 +37,7 @@ something_wrong() {
 
 ##  Not a working Directory
 not_my_dir() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    lineBreak='<<##############################################>>'
     echo $lineBreak
     echo "Make sure you are in the right directory."
     echo "Your current working directory is: $PWD"
@@ -47,7 +47,7 @@ not_my_dir() {
 
 ##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    lineBreak='<<##############################################>>'
     echo "Checking to see if the folder exists in the given path."
     echo $lineBreak
     if !( [ -e "$1"  ] ); then
@@ -69,7 +69,7 @@ test_location() {
 
 ##  Finds the old packages and deletes them.
 find_old_pkgs() {
-    lineBreak="<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>"
+    lineBreak='<<##############################################>>'
     ##  Fill array
     local thFiles=()
     local thLocation=$1
