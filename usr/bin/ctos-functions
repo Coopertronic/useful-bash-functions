@@ -13,43 +13,43 @@ check_root() {
     fi
 }
 
+line_break() {
+    echo '<<##############################################>>'
+}
+
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
-    lineBreak='<<##############################################>>'
-    #clear
-    echo $lineBreak
+    
+    line_break
     echo "Goodbye"
-    echo $lineBreak
+    line_break
 }
 
 ##> Prints an Error message to the terminal and exits the script.
 something_wrong() {
-    lineBreak='<<##############################################>>'
-    echo $lineBreak
+    line_break
     echo "Something went wrong!!"
     echo "The script cannot continue."
     echo "Please read the above messages"
     echo "to understand what caused the error."
-    echo $lineBreak
+    line_break
     say_goodbye
     exit 1
 }
 
 ##  Not a working Directory
 not_my_dir() {
-    lineBreak='<<##############################################>>'
-    echo $lineBreak
+    line_break
     echo "Make sure you are in the right directory."
     echo "Your current working directory is: $PWD"
     echo "Your requested directory is: $1"
-    echo $lineBreak
+    line_break
 }
 
 ##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
-    lineBreak='<<##############################################>>'
     echo "Checking to see if the folder exists in the given path."
-    echo $lineBreak
+    line_break
     if !( [ -e "$1"  ] ); then
         echo "You should create the directory"
         not_my_dir $1
@@ -69,7 +69,6 @@ test_location() {
 
 ##  Finds the old packages and deletes them.
 find_old_pkgs() {
-    lineBreak='<<##############################################>>'
     ##  Fill array
     local thFiles=()
     local thLocation=$1
@@ -79,7 +78,7 @@ find_old_pkgs() {
     echo "The Prefix: " $thPrefix
     echo "The Extention: " $thExtention
     newFileLocation=$(ls -t $thLocation$thPrefix*.$thExtention | head -1)
-    echo $lineBreak
+    line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
     for f in $thLocation$thPrefix*.$thExtention; do
@@ -88,7 +87,7 @@ find_old_pkgs() {
             thFiles+=($fileName)
         fi
     done
-    echo $lineBreak
+    line_break
     echo "Here are all the $thExtention files apart from the newest one."
     echo "Total files for $thExtention: ${#thFiles[@]}"
     count=0
@@ -96,10 +95,10 @@ find_old_pkgs() {
         echo "File $((count + 1)): "$i
         ((count++))
     done
-    echo $lineBreak
+    line_break
     echo "Do you want to delete them?"
     #to_continue
-    echo $lineBreak
+    line_break
     for i in "${thFiles[@]}"; do
         echo "Deleting file $((count + 1)): "$i
         rm $thLocation$i
