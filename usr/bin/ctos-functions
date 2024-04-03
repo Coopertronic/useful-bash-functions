@@ -14,14 +14,20 @@ check_root() {
 }
 
 line_break() {
+    local thChar=''
+    local thSize=0
     if [ -z "$1" ]; then
-        set -- "${1:-'='}"
+        $thChar='='
+    else
+        $thChar=$1
     fi
     if [ -z "$2" ]; then
-        set -- "${2:-46}"
+        $thSize=46
+    else
+        $thSize=$2
     fi
-    echo "Line Char: $1"
-    echo "Line size: $2"
+    echo "Line Char: $thChar"
+    echo "Line size: $thSize"
     echo '<<==============================================>>'
     #       ==============================================
 }
