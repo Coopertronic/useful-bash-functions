@@ -17,14 +17,14 @@ line_break() {
     local thChar=''
     local thSize=0
     if [ -z "$1" ]; then
-        $thChar='='
+        thChar='='
     else
-        $thChar=$1
+        thChar=$1
     fi
     if [ -z "$2" ]; then
-        $thSize=46
+        thSize=46
     else
-        $thSize=$2
+        thSize=$2
     fi
     echo "Line Char: $thChar"
     echo "Line size: $thSize"
