@@ -29,8 +29,9 @@ line_break() {
     echo "Line Char: $thChar"
     echo "Line size: $thSize"
     local thLine='<<'
-    for i in {1..$thSize}; do
-        thLine+=$thLine$thChar
+    for i in {1..${thSize}}; do
+        echo "$i"
+        thLine+=$thChar
     done
     thLine+='>>'
     echo "$thLine"
