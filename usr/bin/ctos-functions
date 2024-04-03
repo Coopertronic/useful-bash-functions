@@ -26,11 +26,8 @@ line_break() {
     else
         thSize=$2
     fi
-    #echo "Line Char: $thChar"
-    #echo "Line size: $thSize"
     local thLine='<<'
     for ((i = 1; i <= $thSize; i++)); do
-        #echo "$i"
         thLine+=$thChar
     done
     thLine+='>>'
@@ -39,10 +36,9 @@ line_break() {
 
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
-
     line_break '#' 10
     echo "Goodbye"
-    line_break
+    line_break '#' 10
 }
 
 ##> Prints an Error message to the terminal and exits the script.
@@ -119,6 +115,7 @@ find_old_pkgs() {
     echo "Do you want to delete them?"
     #to_continue
     line_break
+    count=0
     for i in "${thFiles[@]}"; do
         echo "Deleting file $((count + 1)): "$i
         rm $thLocation$i
