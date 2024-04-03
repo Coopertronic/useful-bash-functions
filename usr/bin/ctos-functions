@@ -115,7 +115,7 @@ find_old_pkgs() {
     echo "Do you want to delete them?"
     #to_continue
     line_break
-    count=0
+    #count=0
     for i in "${thFiles[@]}"; do
         echo "Deleting file $((count + 1)): "$i
         rm $thLocation$i
