@@ -14,12 +14,21 @@ check_root() {
 }
 
 line_break() {
-    echo '<<##############################################>>'
+    if [ -z "$1" ]; then
+        set -- "${1:-=}"
+    fi
+    if [ -z "$2" ]; then
+        set -- "${2:-46}"
+    fi
+    echo "Line Char: $1"
+    echo "Line size: $2"
+    echo '<<==============================================>>'
+    #       ==============================================
 }
 
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
-    
+
     line_break
     echo "Goodbye"
     line_break
