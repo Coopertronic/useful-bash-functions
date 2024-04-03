@@ -26,16 +26,15 @@ line_break() {
     else
         thSize=$2
     fi
-    echo "Line Char: $thChar"
-    echo "Line size: $thSize"
+    #echo "Line Char: $thChar"
+    #echo "Line size: $thSize"
     local thLine='<<'
     for ((i = 1; i <= $thSize; i++)); do
-        echo "$i"
+        #echo "$i"
         thLine+=$thChar
     done
     thLine+='>>'
     echo "$thLine"
-    #       ==============================================
 }
 
 ##> Prints a goodbye message to the terminal and exits the script.
