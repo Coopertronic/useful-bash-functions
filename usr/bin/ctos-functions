@@ -28,14 +28,19 @@ line_break() {
     fi
     echo "Line Char: $thChar"
     echo "Line size: $thSize"
-    echo '<<==============================================>>'
+    local thLine='<<'
+    for i in {1..$thSize}; do
+        thLine+=$thChar
+    done
+    thLine+='>>'
+    echo "$thLine"
     #       ==============================================
 }
 
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
 
-    line_break
+    line_break '#' 10
     echo "Goodbye"
     line_break
 }
