@@ -64,7 +64,6 @@ not_my_dir() {
 
 ##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
-    echo "The requested directory is: $1"
     echo "Checking to see if the folder exists in the given path."
     line_break
     if !( [ -e "$1"  ] ); then
