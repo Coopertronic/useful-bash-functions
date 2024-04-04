@@ -68,13 +68,13 @@ test_location() {
     line_break
     if !( [ -e "$1"  ] ); then
         echo "You should create the directory"
-        not_my_dir $1
+        not_my_dir "$1"
         return 1
     else
         echo "The location exists"
         if !( [ -d  "$1" ] ); then
             echo "Exists, but is not a directory"
-            not_my_dir $1
+            not_my_dir "$1"
             return 1
         else
             echo "Is a directory"
