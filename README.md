@@ -43,8 +43,8 @@ This function finds old packages and deletes them leaving the new ones in place.
 
 This script needs 3 parameters passed to it:
 
-- The prefix of the file to search for
 - The location to look in
+- The prefix of the file to search for
 - The suffix of the file
 
 #### to_continue()
