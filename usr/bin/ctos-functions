@@ -93,11 +93,11 @@ find_old_pkgs() {
     echo "The Path: " $thLocation
     echo "The Prefix: " $thPrefix
     echo "The Extention: " $thExtention
-    newFileLocation=$(ls -t $thLocation$thPrefix*.$thExtention | head -1)
+    newFileLocation=$(ls -t $thLocation$thPrefix-[0-9].*.$thExtention | head -1)
     line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
-    for f in $thLocation$thPrefix*.$thExtention; do
+    for f in $thLocation$thPrefix-[0-9].*.$thExtention; do
         fileName=${f##*/}
         if [ "$fileName" != "$newFile" ]; then
             thFiles+=($fileName)

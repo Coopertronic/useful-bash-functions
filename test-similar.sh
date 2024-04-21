@@ -23,7 +23,7 @@ find_just_this_old_pkg() {
     echo "The Path: " $thLocation
     echo "The Prefix: " $thPrefix
     echo "The Extention: " $thExtention
-    ls -t $thLocation$thPrefix-[0-9].*.$thExtention
+    #ls -t $thLocation$thPrefix-[0-9].*.$thExtention
     newFileLocation=$(ls -t $thLocation$thPrefix-[0-9].*.$thExtention | head -1)
     line_break
     newFile=${newFileLocation##*/}
