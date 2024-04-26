@@ -159,3 +159,10 @@ to_continue() {
 
     done
 }
+
+auto_continue() {
+    ##  If anything is passed to this function then skip to_continue.
+    if [ -z "$1" ]; then
+        to_continue
+    fi
+}
