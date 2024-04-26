@@ -51,6 +51,6 @@ This script needs 3 parameters passed to it:
 
 This function simply adds a break point in the script task the user if they want to continue or not. If not then the script is ended with `exit 0`.
 
-#### auto_continue
+#### auto_continue()
 
 This is simply a wrapper function for `to_continue` that will run `to_continue` if nothing is passed to it. This can be expanded as necessary with safer logic. This has yet to be tested.
