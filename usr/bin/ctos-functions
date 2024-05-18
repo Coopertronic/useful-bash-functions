@@ -97,7 +97,7 @@ find_old_pkgs() {
     line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
-    for f in (ls -t $thLocation$thPrefix-[0-9].*.$thExtention); do
+    for f in $(ls -t $thLocation$thPrefix-[0-9].*.$thExtention); do
         fileName=${f##*/}
         if [ "$fileName" != "$newFile" ]; then
             thFiles+=($fileName)
