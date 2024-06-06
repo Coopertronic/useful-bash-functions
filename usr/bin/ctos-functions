@@ -167,3 +167,45 @@ auto_continue() {
         to_continue
     fi
 }
+
+is_correct() {
+    while true; do
+
+        read -p "Yes or No? (y/n) " yn
+
+        case $yn in
+        yes)
+            echo ok, we will proceed
+            return 0
+            #break
+            ;;
+        y)
+            echo ok, we will proceed
+            return 0
+            #break
+            ;;
+        Y)
+            echo ok, we will proceed
+            return 0
+            #break
+            ;;
+        no)
+            echo "We will do it again."
+            return 1
+            #break
+            ;;
+        n)
+            echo "We will do it again."
+            return 1
+            #break
+            ;;
+        N)
+            echo "We will do it again."
+            return 1
+            #break
+            ;;
+        *) echo invalid response ;;
+        esac
+
+    done
+}

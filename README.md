@@ -54,3 +54,7 @@ This function simply adds a break point in the script task the user if they want
 #### auto_continue()
 
 This is simply a wrapper function for `to_continue` that will run `to_continue` if nothing is passed to it. This can be expanded as necessary with safer logic. This has yet to be tested.
+
+#### is_correct()
+
+This function returns a 0 for yes and a 1 for no to indicate weather a user deems the result to be correct in any situation.
