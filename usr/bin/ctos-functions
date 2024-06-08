@@ -106,15 +106,15 @@ find_old_pkgs() {
     line_break
     echo "Here are all the $thExtention files apart from the newest one."
     echo "Total files for $thExtention: ${#thFiles[@]}"
-    to_continue
+    #to_continue
     count=0
     for i in "${thFiles[@]}"; do
         echo "File $((count + 1)): "$i
         ((count++))
     done
     line_break
-    echo "Do you want to delete them?"
-    to_continue
+    #echo "Do you want to delete them?"
+    #to_continue
     line_break
     #count=0
     for i in "${thFiles[@]}"; do
