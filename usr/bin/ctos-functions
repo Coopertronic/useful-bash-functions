@@ -37,7 +37,7 @@ line_break() {
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
     line_break '#' 10
-    echo "Goodbye"
+    echo "  Goodbye"
     line_break '#' 10
 }
 
@@ -98,7 +98,7 @@ find_old_pkgs() {
     line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
-    for f in $(ls -t $thLocation$thPrefix-[0-9].*.$thExtention); do ##  <=  Issue
+    for f in $(ls -t $thLocation$thPrefix-[0-9].*.$thExtention); do ##  <=  Issue 2
         fileName=${f##*/}
         if [ "$fileName" != "$newFile" ]; then
             thFiles+=($fileName)
