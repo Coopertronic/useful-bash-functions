@@ -53,6 +53,17 @@ something_wrong() {
     exit 1
 }
 
+do_install() {
+    check_root
+    if !(pacman -S --needed "$1" --noconfirm); then
+        something_wrong
+    else
+    line_break
+        echo "The following packages have been successfuly installed:"
+        echo "$1"
+    fi
+}
+
 ##  Not a working Directory
 not_my_dir() {
     line_break
@@ -98,7 +109,9 @@ find_old_pkgs() {
     line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
-    for f in $(ls -t $thLocation$thPrefix-[0-9].*.$thExtention); do ##  <=  Issue 2
+    for f in $(##  <=  Issue 2
+        ls -t $thLocation$thPrefix-[0-9].*.$thExtention
+    ); do
         fileName=${f##*/}
         if [ "$fileName" != "$newFile" ]; then
             thFiles+=($fileName)
