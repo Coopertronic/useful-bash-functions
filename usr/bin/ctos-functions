@@ -54,12 +54,22 @@ something_wrong() {
     exit 1
 }
 
+test_service() {
+    if !(systemctl is-active --quiet $1); then
+        echo "The service $1 is not active."
+        return 1
+    else
+        echo "The service $1 is active."
+        return 0
+    fi
+}
+
 do_install() {
     check_root
-    if !(pacman -S --needed "$1" --noconfirm); then
+    if !(pacman -S --needed "$1"); then
         something_wrong
     else
-    line_break
+        line_break
         echo "The following packages have been successfuly installed:"
         echo "$1"
     fi
