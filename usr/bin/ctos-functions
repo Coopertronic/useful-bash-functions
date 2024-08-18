@@ -9,6 +9,7 @@
 check_root() {
     if [ "$EUID" -ne 0 ]; then
         echo "You need to run as ROOT, dummy!!!"
+        echo 'Type "sudo !!" to run the script as ROOT.'
         exit 1
     fi
 }
