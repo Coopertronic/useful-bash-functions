@@ -67,9 +67,7 @@ test_service() {
 do_install() {
     check_root
     local installList="${1}"
-    echo "$installList"
-    to_continue
-    if !(pacman -S --needed $installList); then
+    if !(pacman -S --needed $installList --noconfirm); then
         something_wrong
     else
         line_break
