@@ -231,7 +231,7 @@ is_correct() {
 
         case $yn in
         yes)
-            echo ""OK, we will proceed ..."
+            echo "OK, we will proceed ..."
             return 0
             #break
             ;;
