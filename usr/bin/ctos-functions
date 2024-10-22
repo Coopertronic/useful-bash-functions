@@ -14,6 +14,7 @@ check_root() {
     fi
 }
 
+##> Creates a terminal line break using repeated symbols.
 line_break() {
     local thChar=''
     local thSize=0
@@ -60,6 +61,18 @@ test_service() {
         return 1
     else
         echo "The service $1 is active."
+        return 0
+    fi
+}
+
+##> Tests if a package is installed
+test_installed() {
+    echo "Is the package $1 installed?"
+    if !(pacman -Qi $1 > /dev/null); then
+        echo "The package $1 is not installed."
+        return 1
+    else
+        echo "The package $1 is already installed."
         return 0
     fi
 }
