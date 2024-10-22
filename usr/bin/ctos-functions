@@ -7,10 +7,18 @@
 
 ##> Checks if the user is root and kills the script if it is not.
 check_root() {
-    if [ "$EUID" -ne 0 ]; then
-        echo "You need to run as ROOT, dummy!!!"
-        echo 'Type "sudo !!" to run the script as ROOT.'
-        exit 1
+    if [ -z "$1" ]; then
+        if [ "$EUID" -ne 0 ]; then
+            echo "You need to run as ROOT, dummy!!!"
+            echo 'Type "sudo !!" to run the script as ROOT.'
+            exit 1
+        fi
+    else
+        if [ "$EUID" -ne 0 ]; then
+            return 1
+        else
+            return 0
+        fi
     fi
 }
 
@@ -78,14 +86,23 @@ test_installed() {
 }
 
 do_install() {
-    check_root
     local installList="${1}"
-    if !(pacman -S --needed $installList --noconfirm); then
-        something_wrong
+    if !(check_root q); then
+        if !(sudo pacman -S --needed $installList --noconfirm); then
+            something_wrong
+        else
+            line_break
+            echo "The following packages have been successfuly installed:"
+            echo "$1"
+        fi
     else
-        line_break
-        echo "The following packages have been successfuly installed:"
-        echo "$1"
+        if !(pacman -S --needed $installList --noconfirm); then
+            something_wrong
+        else
+            line_break
+            echo "The following packages have been successfuly installed:"
+            echo "$1"
+        fi
     fi
 }
 
