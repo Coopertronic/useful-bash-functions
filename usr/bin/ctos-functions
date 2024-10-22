@@ -188,15 +188,15 @@ to_continue() {
 
         case $yn in
         yes)
-            echo ok, we will proceed
+            echo "OK, we will proceed ..."
             break
             ;;
         y)
-            echo ok, we will proceed
+            echo "OK, we will proceed ..."
             break
             ;;
         Y)
-            echo ok, we will proceed
+            echo "OK, we will proceed ..."
             break
             ;;
         no)
@@ -231,32 +231,32 @@ is_correct() {
 
         case $yn in
         yes)
-            echo ok, we will proceed
+            echo ""OK, we will proceed ..."
             return 0
             #break
             ;;
         y)
-            echo ok, we will proceed
+            echo "OK, we will proceed ..."
             return 0
             #break
             ;;
         Y)
-            echo ok, we will proceed
+            echo "OK, we will proceed ..."
             return 0
             #break
             ;;
         no)
-            echo "We will do it again."
+            echo "OK, We won't then!!"
             return 1
             #break
             ;;
         n)
-            echo "We will do it again."
+            echo "OK, We won't then!!"
             return 1
             #break
             ;;
         N)
-            echo "We will do it again."
+            echo "OK, We won't then!!"
             return 1
             #break
             ;;
