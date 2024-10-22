@@ -46,9 +46,11 @@ line_break() {
 
 ##> Prints a goodbye message to the terminal and exits the script.
 say_goodbye() {
-    line_break '#' 10
-    echo "  Goodbye"
-    line_break '#' 10
+    line_break '#' 12
+    cat <<EOT
+    Goodbye
+EOT
+    line_break '#' 12
 }
 
 ##> Prints an Error message to the terminal and exits the script.
