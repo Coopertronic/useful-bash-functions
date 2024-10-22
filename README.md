@@ -5,7 +5,9 @@ Some functions that help me make new scripts.
 
 #### check_root()
 
-Use this function is your script needs to be run as root. It will exit the script with a message when you are not running as root/sudo.
+Use this function if your script needs to be run as root. It will exit the script with a message when you are not running as root/sudo.
+
+If called with anything passed to it e.g. `check_root q` it will return a 0 if root and a 1 if not, otherwise it will exit returning a 1.
 
 #### line_break()
 
@@ -29,6 +31,18 @@ This function simply echos a goodbye message to the terminal.
 
 This simply echos a generic error message and exits the script on an error. `exit 1`
 
+#### test_service()
+
+This tests if a system-D service is active or not returning a 0 for active and a 1 if not.
+
+#### test_installed()
+
+This simply tests if a package is installed or not returning a 0 if installed and a 1 if not.
+
+#### do_install()
+
+This function will install a list of packages without prompting for user input. It will check if sudo is needed or not.
+
 #### not_my_dir()
 
 This simply echos a generic error message when an expected directory (thing) is not found.
@@ -39,7 +53,7 @@ This test a passed location to see if it exist, is a directory and not a file. I
 
 #### find_old_pkgs()
 
-This function finds old packages and deletes them leaving the new ones in place. This does not know how to deal with names that have the same prefixs.
+This function finds old packages and deletes them leaving the new ones in place. This does not know how to deal with names that have the same prefixes.
 
 This script needs 3 parameters passed to it:
 
