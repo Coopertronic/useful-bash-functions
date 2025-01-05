@@ -3,8 +3,8 @@
 pkgname=ctos-functions
 _pkgname=useful-bash-functions
 _destname1="/usr"
-pkgver=1.r89.9141037
-pkgrel=2
+pkgver=1.r107.100c132
+pkgrel=1
 pkgdesc="Useful functions to make my other scripts work."
 arch=('any')
 url="https://github.com/Coopertronic/useful-bash-functions.git"
@@ -32,7 +32,7 @@ package() {
 	##  Install documentation
     install -d $pkgdir/usr/share/man/man1
     install -d $pkgdir/usr/share/doc/$pkgname
-    go-md2man -in $srcdir/$pkgname/README.md -out $srcdir/$pkgname/$pkgname.1
-    install -D -m644 $srcdir/$pkgname/$pkgname.1 $pkgdir/usr/share/man/man1/$pkgname.1
-    install -D -m644 $srcdir/$pkgname/README.md $pkgdir/usr/share/doc/$pkgname/README.md
+    go-md2man -in $srcdir/$_pkgname/README.md -out $srcdir/$_pkgname/$pkgname.1
+    install -D -m644 $srcdir/$_pkgname/$pkgname.1 $pkgdir/usr/share/man/man1/$pkgname.1
+    install -D -m644 $srcdir/$_pkgname/README.md $pkgdir/usr/share/doc/$pkgname/README.md
 }
