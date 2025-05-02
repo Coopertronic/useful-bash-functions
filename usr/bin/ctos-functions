@@ -347,7 +347,7 @@ esc_quit() {
     fi
     local escKey="$(printf '%b' '\033')"
 
-    if ("$1" == "$escKey"); then # Run if the ESC is the quit command
+    if ["$1" == "$escKey"]; then # Run if the ESC is the quit command
         while [ $loop -eq 1 ]; do
             clear
             line_break '#'
@@ -375,7 +375,7 @@ EOT
                 ;;
             esac
         done
-    elif ("$1" == "q"); then # if Q is the quit method
+    elif ["$1" == "q"]; then # if Q is the quit method
         while [ $loop -eq 1 ]; do
             clear
             line_break '#'
