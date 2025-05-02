@@ -3,7 +3,7 @@
 pkgname=ctos-functions
 _pkgname=useful-bash-functions
 _destname1="/usr"
-pkgver=1.r109.c062db4
+pkgver=1.r119.e5302b6
 pkgrel=1
 pkgdesc="Useful functions to make my other scripts work."
 arch=('any')
