@@ -117,9 +117,18 @@ not_my_dir() {
     line_break
 }
 
+##  Not a file
+not_my_file() {
+    line_break
+    echo "Make sure you have typed the file name correctly."
+    echo "Your current working directory is: $PWD"
+    echo "Your requested file is: $1"
+}
+
 ##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
 test_location() {
-    echo "Checking to see if the folder exists in the given path."
+    local folderName="$(basename $1)"
+    echo "Checking to see if the Folder $folderName exists in the given path."
     line_break
     if !( [ -e "$1"  ] ); then
         echo "You should create the directory"
@@ -133,6 +142,28 @@ test_location() {
             return 1
         else
             echo "Is a directory"
+            return 0
+        fi
+    fi
+}
+
+##  Tests if a file exists or not
+test_file() {
+    local fileName="$(basename $1)"
+    echo "Checking to see if the file $fileName exists in the given path."
+    line_break
+    if !( [ -e "$1"  ] ); then
+        echo "You should create the file"
+        not_my_file "$fileName"
+        return 1
+    else
+        echo "The location exists"
+        if !( [ -f  "$1" ] ); then
+            echo "Exists, but is not a file"
+            not_my_file "$fileName"
+            return 1
+        else
+            echo "Is a file"
             return 0
         fi
     fi

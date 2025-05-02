@@ -49,7 +49,11 @@ This simply echos a generic error message when an expected directory (thing) is 
 
 #### test_location()
 
-This test a passed location to see if it exist, is a directory and not a file. It returns 0 for a PASS and 1 for a FAIL.
+This tests a path location to see if it exist, is a directory and not a file. It returns 0 for a PASS and 1 for a FAIL.
+
+#### test_file()
+
+This tests if a file is in a given location and that if the file exists and is a file and not a directory. It returns 0 for a PASS and 1 for a FAIL.
 
 #### find_old_pkgs()
 
