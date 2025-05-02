@@ -346,6 +346,9 @@ esc_quit() {
         local loop=1
     fi
     local escKey="$(printf '%b' '\033')"
+    echo "$1"
+    echo "$loop"
+    to_continue
 
     if ["$1" == "$escKey"]; then # Run if the ESC is the quit command
         while [ $loop -eq 1 ]; do
