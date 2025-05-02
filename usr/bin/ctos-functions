@@ -295,6 +295,136 @@ is_correct() {
             ;;
         *) echo invalid response ;;
         esac
+    done
+}
 
+## Read a single key press
+#   usage: read_key_press <variable-name>
+read_key_press() {
+    if [ -t 0 ]; then
+        # if stdin is a tty device, put it out of icanon, set min and
+        # time to sane value, but don't otherwise touch other input or
+        # or local settings (echo, isig, icrnl...). Take a backup of the
+        # previous settings beforehand.
+        saved_tty_settings=$(stty -g)
+        stty -echo -icanon min 1 time 0
+    fi
+    eval "$1="
+    while
+        # read one byte, using a work around for the fact that command
+        # substitution strips trailing newline characters.
+        c=$(
+            dd bs=1 count=1 2>/dev/null
+            echo .
+        )
+        c=${c%.}
+
+        # break out of the loop on empty input (eof) or if a full character
+        # has been accumulated in the output variable (using "wc -m" to count
+        # the number of characters).
+        [ -n "$c" ] &&
+            eval "$1=\${$1}"'$c
+        [ "$(($(printf %s "${'"$1"'}" | wc -m)))" -eq 0 ]'
+    do
+        continue
+    done
+    if [ -t 0 ]; then
+        # restore settings saved earlier if stdin is a tty device.
+        stty "$saved_tty_settings"
+    fi
+}
+
+##      ESC Quit double-check
+#   Needs to be passed the key pressed variable
+esc_quit() {
+    local key
+    local keyPressMsg
+    if [ ! $1 ]; then
+        echo "No key passed."
+        local loop=0
+    else
+        local loop=1
+    fi
+    local escKey="$(printf '%b' '\033')"
+
+    if [ $1 -eq $escKey ]; then # Run if the ESC is the quit command
+        while [ $loop -eq 1 ]; do
+            clear
+            line_break '#'
+            cat <<EOT
+
+    Press ESC again to quit.
+
+    Press any other key to go back.
+
+EOT
+            line_break '~'
+            # Reads one character.
+            read_key_press key
+            # Acts according to what has been pressed.
+            case "$key" in
+            "$escKey")
+                keyPressMsg="ESC pressed"
+                clear
+                say_goodbye
+                exit 0
+                ;;
+            *)
+                echo "going back"
+                loop=0
+                ;;
+            esac
+        done
+    elif [ $1 -eq 'q' ]; then # if Q is the quit method
+        while [ $loop -eq 1 ]; do
+            clear
+            line_break '#'
+            cat <<EOT
+
+    Press Q again to quit.
+
+    Press any other key to go back.
+
+EOT
+            line_break '~'
+            # Reads one character.
+            read_key_press key
+            # Acts according to what has been pressed.
+            case "$key" in
+            q)
+                keyPressMsg="Quit pressed"
+                clear
+                say_goodbye
+                exit 0
+                ;;
+            *)
+                echo "going back"
+                loop=0
+                ;;
+            esac
+        done
+    fi
+}
+
+##  quit or continue with any key
+#   e.g. "Press any key to continue"
+anykey() {
+    local key
+    local keyPressMsg
+    local loop=1
+    while [ $loop -eq 1 ]; do
+        # Reads one character.
+        read_key_press key
+        # Acts according to what has been pressed.
+        case "$key" in
+        q)
+            keyPressMsg="Quit pressed"
+            esc_quit "$key"
+            ;;
+        *)
+            echo "going back"
+            loop=0
+            ;;
+        esac
     done
 }

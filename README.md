@@ -76,3 +76,19 @@ This is simply a wrapper function for `to_continue` that will run `to_continue` 
 #### is_correct()
 
 This function returns a 0 for yes and a 1 for no to indicate weather a user deems the result to be correct in any situation.
+
+#### read_key_press()
+
+This function will read a single key press and return its value. This is very useful for interactive menus.
+
+usage: `read_key_press <variable-name>`
+
+#### esc_quit()
+
+This function double checks if a user script using the ESC key or the Q key to quit the program, actually wants to quit the program.
+
+Usage: `esc_quit "$key"`
+
+#### anykey()
+
+This function asks the user to press any key to continue. The Q key can be used to quit the program.
