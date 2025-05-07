@@ -184,7 +184,7 @@ find_old_pkgs() {
     line_break
     newFile=${newFileLocation##*/}
     echo "Here is the newest file: " $newFile
-    for f in $(##  <=  Issue 2
+    for f in $( ##  <=  Issue 2
         ls -t $thLocation$thPrefix-[0-9].*.$thExtention
     ); do
         fileName=${f##*/}
@@ -257,43 +257,44 @@ auto_continue() {
     fi
 }
 
-is_correct() { ## make function use a single key press.
-    while true; do
+is_correct() { ##   make function use a single key press.
+    local key  ##    The key press is stored here.
+    local loop=1
+    while [ $loop -eq 1 ]; do
 
-        read -p "Yes or No? (y/n) " yn
+        # read -p "Yes or No? (y/n) " yn
+        echo "Yes or No? (y/n)"
+        # Reads one character.
+        read_key_press key
 
-        case $yn in
-        yes)
-            echo "OK, we will proceed ..."
-            return 0
-            #break
-            ;;
+        case "$key" in
         y)
             echo "OK, we will proceed ..."
+            loop=0
             return 0
             #break
             ;;
         Y)
             echo "OK, we will proceed ..."
+            loop=0
             return 0
-            #break
-            ;;
-        no)
-            echo "OK, We won't then!!"
-            return 1
             #break
             ;;
         n)
             echo "OK, We won't then!!"
+            loop=0
             return 1
             #break
             ;;
         N)
             echo "OK, We won't then!!"
+            loop=0
             return 1
             #break
             ;;
-        *) echo invalid response ;;
+        *)
+            keyPressMsg="Undefined -- $key pressed"
+            ;;
         esac
     done
 }
