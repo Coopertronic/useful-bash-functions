@@ -257,7 +257,7 @@ auto_continue() {
     fi
 }
 
-is_correct() {
+is_correct() { ## make function use a single key press.
     while true; do
 
         read -p "Yes or No? (y/n) " yn
