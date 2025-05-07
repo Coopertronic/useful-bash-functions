@@ -1,0 +1,431 @@
+#!/bin/bash
+
+##  Some useful functions
+##  Copy this script to your project folder
+##  and add as 'source ctos-functions' then
+##  just call the functions as normal.
+
+##> Checks if the user is root and kills the script if it is not.
+check_root() {
+    if [ -z "$1" ]; then
+        if [ "$EUID" -ne 0 ]; then
+            echo "You need to run as ROOT, dummy!!!"
+            echo 'Type "sudo !!" to run the script as ROOT.'
+            exit 1
+        fi
+    else
+        if [ "$EUID" -ne 0 ]; then
+            return 1
+        else
+            return 0
+        fi
+    fi
+}
+
+##> Creates a terminal line break using repeated symbols.
+line_break() {
+    local thChar=''
+    local thSize=0
+    if [ -z "$1" ]; then
+        thChar='='
+    else
+        thChar=$1
+    fi
+    if [ -z "$2" ]; then
+        thSize=46
+    else
+        thSize=$2
+    fi
+    local thLine='<<'
+    for ((i = 1; i <= $thSize; i++)); do
+        thLine+=$thChar
+    done
+    thLine+='>>'
+    echo "$thLine"
+}
+
+##> Prints a goodbye message to the terminal and exits the script.
+say_goodbye() {
+    line_break '#' 12
+    cat <<EOT
+    Goodbye
+EOT
+    line_break '#' 12
+}
+
+##> Prints an Error message to the terminal and exits the script.
+something_wrong() {
+    line_break
+    echo "Something went wrong!!"
+    echo "The script cannot continue."
+    echo "Please read the above messages"
+    echo "to understand what caused the error."
+    line_break
+    say_goodbye
+    exit 1
+}
+
+test_service() {
+    if !(systemctl is-active --quiet $1); then
+        echo "The service $1 is not active."
+        return 1
+    else
+        echo "The service $1 is active."
+        return 0
+    fi
+}
+
+##> Tests if a package is installed
+test_installed() {
+    echo "Is the package $1 installed?"
+    if !(pacman -Qi $1 > /dev/null); then
+        echo "The package $1 is not installed."
+        return 1
+    else
+        echo "The package $1 is already installed."
+        return 0
+    fi
+}
+
+do_install() {
+    local installList="${1}"
+    if !(check_root q); then
+        if !(sudo pacman -S --needed $installList --noconfirm); then
+            something_wrong
+        else
+            line_break
+            echo "The following packages have been successfuly installed:"
+            echo "$1"
+        fi
+    else
+        if !(pacman -S --needed $installList --noconfirm); then
+            something_wrong
+        else
+            line_break
+            echo "The following packages have been successfuly installed:"
+            echo "$1"
+        fi
+    fi
+}
+
+##  Not a working Directory
+not_my_dir() {
+    line_break
+    echo "Make sure you are in the right directory."
+    echo "Your current working directory is: $PWD"
+    echo "Your requested directory is: $1"
+    line_break
+}
+
+##  Not a file
+not_my_file() {
+    line_break
+    echo "Make sure you have typed the file name correctly."
+    echo "Your current working directory is: $PWD"
+    echo "Your requested file is: $1"
+}
+
+##  Tests if a directory location exists and if it is indeed a directory. This must be passed a string of the location.
+test_location() {
+    local folderName="$(basename $1)"
+    # echo "Checking to see if the Folder $folderName exists in the given path."
+    # line_break
+    if !( [ -e "$1"  ] ); then
+        # echo "You should create the directory"
+        # not_my_dir "$1"
+        return 1
+    else
+        # echo "The location exists"
+        if !( [ -d  "$1" ] ); then
+            # echo "Exists, but is not a directory"
+            # not_my_dir "$1"
+            return 1
+        else
+            # echo "Is a directory"
+            return 0
+        fi
+    fi
+}
+
+##  Tests if a file exists or not
+test_file() {
+    local fileName="$(basename $1)"
+    echo "Checking to see if the file $fileName exists in the given path."
+    line_break
+    if !( [ -e "$1"  ] ); then
+        echo "You should create the file"
+        not_my_file "$fileName"
+        return 1
+    else
+        echo "The location exists"
+        if !( [ -f  "$1" ] ); then
+            echo "Exists, but is not a file"
+            not_my_file "$fileName"
+            return 1
+        else
+            echo "Is a file"
+            return 0
+        fi
+    fi
+}
+
+##  Finds the old packages and deletes them.
+find_old_pkgs() {
+    ##  Fill array
+    local thFiles=()
+    local thLocation=$1
+    local thPrefix=$2
+    local thExtention=$3
+    echo "The Path: " $thLocation
+    echo "The Prefix: " $thPrefix
+    echo "The Extention: " $thExtention
+    ##  Issue - Although the following method returns the correct filename string per version number, it does not do this if the version numbering starts with 'r' for revision. This means that the newest revision number is counted as part of the package name. I need to extrapolate either the filename ends with -[0-9] or -r[0-9], but cannot be both.
+    newFileLocation=$(ls -t $thLocation$thPrefix-[0-9].*.$thExtention | head -1) #  <=  Issue
+    line_break
+    newFile=${newFileLocation##*/}
+    echo "Here is the newest file: " $newFile
+    for f in $( ##  <=  Issue 2
+        ls -t $thLocation$thPrefix-[0-9].*.$thExtention
+    ); do
+        fileName=${f##*/}
+        if [ "$fileName" != "$newFile" ]; then
+            thFiles+=($fileName)
+        fi
+    done
+    line_break
+    echo "Here are all the $thExtention files apart from the newest one."
+    echo "Total files for $thExtention: ${#thFiles[@]}"
+    #to_continue
+    count=0
+    for i in "${thFiles[@]}"; do
+        echo "File $((count + 1)): "$i
+        ((count++))
+    done
+    line_break
+    #echo "Do you want to delete them?"
+    #to_continue
+    line_break
+    #count=0
+    for i in "${thFiles[@]}"; do
+        echo "Deleting file $((count + 1)): "$i
+        rm $thLocation$i
+        ((count++))
+    done
+}
+
+##> This function asks the user if they want to continue or not.
+to_continue() {
+    while true; do
+
+        read -p "Yes or No? (y/n) " yn
+
+        case $yn in
+        yes)
+            echo "OK, we will proceed ..."
+            break
+            ;;
+        y)
+            echo "OK, we will proceed ..."
+            break
+            ;;
+        Y)
+            echo "OK, we will proceed ..."
+            break
+            ;;
+        no)
+            say_goodbye
+            exit 0
+            ;;
+        n)
+            say_goodbye
+            exit 0
+            ;;
+        N)
+            say_goodbye
+            exit 0
+            ;;
+        *) echo invalid response ;;
+        esac
+
+    done
+}
+
+auto_continue() {
+    ##  If anything is passed to this function then skip to_continue.
+    if [ -z "$1" ]; then
+        to_continue
+    fi
+}
+
+is_correct() { ##   make function use a single key press.
+    local key  ##    The key press is stored here.
+    local loop=1
+    while [ $loop -eq 1 ]; do
+
+        # read -p "Yes or No? (y/n) " yn
+        echo "Yes or No? (y/n)"
+        # Reads one character.
+        read_key_press key
+
+        case "$key" in
+        y)
+            echo "OK, we will proceed ..."
+            loop=0
+            return 0
+            #break
+            ;;
+        Y)
+            echo "OK, we will proceed ..."
+            loop=0
+            return 0
+            #break
+            ;;
+        n)
+            echo "OK, We won't then!!"
+            loop=0
+            return 1
+            #break
+            ;;
+        N)
+            echo "OK, We won't then!!"
+            loop=0
+            return 1
+            #break
+            ;;
+        *)
+            keyPressMsg="Undefined -- $key pressed"
+            ;;
+        esac
+    done
+}
+
+## Read a single key press
+#   usage: read_key_press <variable-name>
+read_key_press() {
+    if [ -t 0 ]; then
+        # if stdin is a tty device, put it out of icanon, set min and
+        # time to sane value, but don't otherwise touch other input or
+        # or local settings (echo, isig, icrnl...). Take a backup of the
+        # previous settings beforehand.
+        saved_tty_settings=$(stty -g)
+        stty -echo -icanon min 1 time 0
+    fi
+    eval "$1="
+    while
+        # read one byte, using a work around for the fact that command
+        # substitution strips trailing newline characters.
+        c=$(
+            dd bs=1 count=1 2>/dev/null
+            echo .
+        )
+        c=${c%.}
+
+        # break out of the loop on empty input (eof) or if a full character
+        # has been accumulated in the output variable (using "wc -m" to count
+        # the number of characters).
+        [ -n "$c" ] &&
+            eval "$1=\${$1}"'$c
+        [ "$(($(printf %s "${'"$1"'}" | wc -m)))" -eq 0 ]'
+    do
+        continue
+    done
+    if [ -t 0 ]; then
+        # restore settings saved earlier if stdin is a tty device.
+        stty "$saved_tty_settings"
+    fi
+}
+
+##      ESC Quit double-check
+#   Needs to be passed the key pressed variable
+esc_quit() {
+    local key
+    local keyPressMsg
+    if [ ! $1 ]; then
+        echo "No key passed."
+        local loop=0
+    else
+        local loop=1
+    fi
+    local escKey="$(printf '%b' '\033')"
+
+    if [[ "$1" == "$escKey" ]]; then # Run if the ESC is the quit command
+        while [ $loop -eq 1 ]; do
+            clear
+            line_break '#'
+            cat <<EOT
+
+    Press ESC again to quit.
+
+    Press any other key to go back.
+
+EOT
+            line_break '~'
+            # Reads one character.
+            read_key_press key
+            # Acts according to what has been pressed.
+            case "$key" in
+            "$escKey")
+                keyPressMsg="ESC pressed"
+                clear
+                say_goodbye
+                exit 0
+                ;;
+            *)
+                echo "going back"
+                loop=0
+                ;;
+            esac
+        done
+    elif [[ "$1" == "q" ]]; then # if Q is the quit method
+        while [ $loop -eq 1 ]; do
+            clear
+            line_break '#'
+            cat <<EOT
+
+    Press Q again to quit.
+
+    Press any other key to go back.
+
+EOT
+            line_break '~'
+            # Reads one character.
+            read_key_press key
+            # Acts according to what has been pressed.
+            case "$key" in
+            q)
+                keyPressMsg="Quit pressed"
+                clear
+                say_goodbye
+                exit 0
+                ;;
+            *)
+                echo "going back"
+                loop=0
+                ;;
+            esac
+        done
+    fi
+}
+
+##  quit or continue with any key
+#   e.g. "Press any key to continue"
+anykey() {
+    local key
+    local keyPressMsg
+    local loop=1
+    while [ $loop -eq 1 ]; do
+        # Reads one character.
+        read_key_press key
+        # Acts according to what has been pressed.
+        case "$key" in
+        q)
+            keyPressMsg="Quit pressed"
+            esc_quit "$key"
+            ;;
+        *)
+            echo "going back"
+            loop=0
+            ;;
+        esac
+    done
+}
