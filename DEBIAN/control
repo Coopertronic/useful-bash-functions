@@ -1,0 +1,5 @@
+Package: ctos-functions
+Version: 1.125
+Maintainer: Coopertronic
+Architecture: all
+Description: A collection of useful functions
